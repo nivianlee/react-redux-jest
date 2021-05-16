@@ -4,6 +4,8 @@ import {
   Route,
   withRouter,
   RouteComponentProps,
+  Router,
+  BrowserRouter,
 } from "react-router-dom";
 import {
   MuiThemeProvider,
@@ -14,6 +16,11 @@ import "./App.css";
 import Home from "./Container/Home";
 import Login from "./Container/Login";
 import Signup from "./Container/Signup";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import { rootReducer } from "./redux/store";
+
+const store = createStore(rootReducer);
 
 const themeLight = createMuiTheme({
   palette: {
@@ -56,26 +63,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const App = (props: RouteComponentProps) => {
+const App = (props: any) => {
   const classes = useStyles();
 
   return (
-    <MuiThemeProvider theme={themeLight}>
-      <main className={classes.content}>
+    <BrowserRouter>
+      <Provider store={store}>
         <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/signup">
-            <Signup />
-          </Route>
+          <MuiThemeProvider theme={themeLight}>
+            <main className={classes.content}>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/signup" component={Signup} />
+            </main>
+          </MuiThemeProvider>
         </Switch>
-      </main>
-    </MuiThemeProvider>
+      </Provider>
+    </BrowserRouter>
   );
 };
 
-export default withRouter(App);
+export default App;
