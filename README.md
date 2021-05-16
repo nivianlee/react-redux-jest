@@ -1,139 +1,112 @@
-## AWS Amplify
+## React Testing Library
 
-AWS Amplify URL: https://master.duer5jpine1ze.amplifyapp.com/
+- Not just a library, also a philosophy ("opinionated")
+  - Test your software the way users actually use it
+  - Not internal implementation
+- Find elements by accessibility markers, not test IDs
 
-## Available Scripts
+### React Testing Library vs Jest
 
-In the project directory, you can run:
+- React Testing Library
+  - Provides virtual DOM for tests
+- Jest
+  - Test runner that find tests, run tests, determines whether tests pass or fail
 
-### `npm start`
+### Breaking down syntax
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### render
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- create virtual DOM for argument JSX
+- access virtual DOM via _screen_ 
 
-## Approach
+#### screen.getByText()
 
-1. Test APIs on Postman
-2. Integrate API to frontend
-3. Create simple form to call API
-4. Store API responses into redux store
-5. Create more detailed UI
-6. Create UX from one test case to another
-7. Conduct error handling
-8. Housekeeping codes
-9. Deployment to AWS
+- find element by display text
 
-## Design Method
+#### /learn react/i
 
-- Reusable components to components that are (1) commonly used across other pages (2) requires more UI customisation
-- Follow as closely to UI provided on document
-- Create workflow of UX from one page to another
-- Create standardisation e.g. Colors, components, fontsizes, etc.
-- Errors are displayed visibly
-- Prevention of recursive calling of APIs as APIs would only be triggered when a button is clicked
-- Documentation of test cases below to allow ease of walkthrough of web application
+- regular expression
+- case insensitive (i)
+- Could be string 'Learn React'
 
---------------------------------------------------------------------------------------------------------------------------------------
+#### expect(linkElement).toBeInTheDocument()
 
-## Test Cases
+- assertion, causes test to succeed or fail
 
-### 1. Sign Up
+### Assertions
 
-At the Home page, click on the Sign Up button on the top right of the screen.
+- What determines tests pass or fail
 
-<img width="1428" alt="1" src="https://user-images.githubusercontent.com/34975891/113423041-5dd3bb00-9400-11eb-9c84-cc38d8fe8fba.png">
+#### expect
 
-You will be redirected to the Sign Up page. Enter your particulars.
+- Jest global, starts the assertion
 
-<img width="1428" alt="2" src="https://user-images.githubusercontent.com/34975891/113426567-3c75cd80-9406-11eb-9dc2-55e89bff8a8d.png">
+#### expect argument: linkElement
 
-If an email had been used previously to create an account, an error would be shown.
+- subject of the assertion
 
-<img width="1428" alt="3" src="https://user-images.githubusercontent.com/34975891/113426605-47c8f900-9406-11eb-9fca-5278eaa4db0e.png">
+#### matcher: toBeInTheDocument
 
-If there were an incorrect email format detected, an error would be shown.
+- type of assertion
+- this matcher comes from Jest-DOM
 
-<img width="1428" alt="4" src="https://user-images.githubusercontent.com/34975891/113426679-64fdc780-9406-11eb-9451-114c1f55eea3.png">
+#### matcher argument: ()
 
-If there are no longer any errors, you will be redirected to the Login page.
+- refines matcher
 
-<img width="1428" alt="5" src="https://user-images.githubusercontent.com/34975891/113426695-6a5b1200-9406-11eb-9a04-67b71cb59181.png">
+### Examples
 
---------------------------------------------------------------------------------------------------------------------------------------
+#### expect(element.textContent).toBe("hello");
 
-### 2. Login
+- In English: Expects element's text content to be "Hello"
 
-On the login page, enter your login credentials.
+#### expect(elementsArray).toHaveLength(7);
 
-<img width="1428" alt="6" src="https://user-images.githubusercontent.com/34975891/113426800-91194880-9406-11eb-949d-e9d5d31993a4.png">
+- In English: Expects elementsArray to have length 7
 
-If incorrect login credentials were inputted, an error would be shown.
+### jest-dom
 
-<img width="1428" alt="7" src="https://user-images.githubusercontent.com/34975891/113426852-9d9da100-9406-11eb-9bd4-89915263b81c.png">
+- comes with create-react-app
+- src/setupTests.js imports it before each test, makes matchers available for every test
+- DOM-based matchers
+  - E.g. toBeVisible() or toBeChecked()
 
-If there are no longer any errors, you will be redirected to the Home page.
+## Jest
 
-<img width="1428" alt="8" src="https://user-images.githubusercontent.com/34975891/113426915-b3ab6180-9406-11eb-813e-85cb31549a35.png">
+- Rendering components into virtual DOM
+- Searching virtual DOM
+- Interacting with virtual DOM
+- Needs a test runner
+  - Find tests, run them, make assertions
+- Recommended by Testing Library
+- Comes wtih create-react app
+- npm test runs an npm script that runs Jest in watch mode
 
---------------------------------------------------------------------------------------------------------------------------------------
+### Jest Watch Mode
 
-### 3. Logout
+- Watch for changs in files since last commit
+- Only run tests related to these files
+- No changes? No tests
+  - Type a to run all tests
 
-At the Home page, click on the Logout button to logout of your account.
+### How does Jest Work?
 
-<img width="1428" alt="8" src="https://user-images.githubusercontent.com/34975891/113426915-b3ab6180-9406-11eb-813e-85cb31549a35.png">
+- gloabl test method that has 2 arguments
+  - string description
+  - test function
+- Test fails if error is thrown when running function
+  - assertions throw erros when expectation fails
+- No error -> Tests pass
+  - Empty test passes
 
-The home page would now show the Login and Sign Up buttons.
 
-<img width="1428" alt="9" src="https://user-images.githubusercontent.com/34975891/113426965-c887f500-9406-11eb-9501-1eaa9855c1fc.png">
 
---------------------------------------------------------------------------------------------------------------------------------------
 
-## Reusable Components
 
-### 1. TextInput
 
-Used in these files
-- Home.tsx
-- Login.tsx
-- Signup.tsx
 
-#### Example
 
-<img width="407" alt="10" src="https://user-images.githubusercontent.com/34975891/113427378-7e534380-9407-11eb-874d-d5b4ba605c8b.png">
 
-### 2. SocialMediaSignIn
 
-Used in these files
-- Login.tsx
 
-#### Example
 
-<img width="396" alt="11" src="https://user-images.githubusercontent.com/34975891/113427411-8b703280-9407-11eb-84d5-7fd40bcc59ef.png">
-
-### 3. KeyFeatures
-
-Used in these files
-- Home.tsx
-
-#### Example
-
-<img width="421" alt="12" src="https://user-images.githubusercontent.com/34975891/113427455-9f1b9900-9407-11eb-9409-96ea64bd272c.png">
-
-### 4. Footer
-
-Used in these files
-- Home.tsx
-- Login.tsx
-- Signup.tsx
-
-#### Example
-
-<img width="1268" alt="13" src="https://user-images.githubusercontent.com/34975891/113427482-ae024b80-9407-11eb-9dac-f4e84199e157.png">
-
---------------------------------------------------------------------------------------------------------------------------------------
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
