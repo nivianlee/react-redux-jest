@@ -99,14 +99,70 @@
 - No error -> Tests pass
   - Empty test passes
 
+## TDD (Test-Driven Development)
 
+- Write tests before writing code
+  - Write code according to "spec" set by tests
+- "red-green" testing
+  - Tests fail before code is written
 
+Write "shell" function -> Write tests -> Tests fail -> Write code -> Tests pass!
 
+- Makes a huge difference in how it feels to write tests
+  - Part of the coding process, not a "chore" to do at the end
+- More efficient
+  - Re-run tests "for free" after changes
 
+## React Testing Library Philosophy
 
+- Creates virtual DOM for testing
+  - and utilities for interacting with DOM
+  - tests without a browser
 
+### Types of tests
 
+- Unit tests
+  - Tests one unit of code in isolation
+- Integration tests
+  - How multiple units work together
+- Functional tests
+  - Tests a particular function of software
+- Acceptance / End-to-end (E2E) tests
+  - Use actual browser and server (Cypress, Selenium)
 
+## Functional Testing v Unit Testing
 
+### Mindset
 
+Unit Testing
 
+- Isolated: Mock dependencies, test internals
+  - (Y) Very easy to pinpoint failures
+  - (N) Further from how users interact with software
+  - (N) More likely to break with refactoring
+
+Functional Testing
+
+- Include all relevant units, test behavior
+  - (Y) Close to how users interact with software
+  - (Y) Robust tests
+  - (N) More difficult to debug failing tests
+
+Overall, functional testing > unit testing for React development
+
+## TDD v BDD
+
+### BDD
+
+- Testing library encourages testing behaviour over implementation
+- BDD is very explicitly defined
+- Involves collaboration between lots of roles
+  - Developers, QA, business partners, etc.
+- Defines process for different groups to interact
+
+## Testing library and Accessibility
+
+- Testing library recommends finding elements by accessibility handles
+  - https://testing-library.com/docs/queries/about/#priority
+- Role documentation
+  - https://www.w3.org/TR/wai-aria/#role_definitions
