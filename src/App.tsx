@@ -4,6 +4,8 @@ import {
   Route,
   withRouter,
   RouteComponentProps,
+  Router,
+  BrowserRouter,
 } from "react-router-dom";
 import {
   MuiThemeProvider,
@@ -60,22 +62,18 @@ const App = (props: RouteComponentProps) => {
   const classes = useStyles();
 
   return (
-    <MuiThemeProvider theme={themeLight}>
-      <main className={classes.content}>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/signup">
-            <Signup />
-          </Route>
-        </Switch>
-      </main>
-    </MuiThemeProvider>
+    <BrowserRouter>
+      <Switch>
+        <MuiThemeProvider theme={themeLight}>
+          <main className={classes.content}>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
+          </main>
+        </MuiThemeProvider>
+      </Switch>
+    </BrowserRouter>
   );
 };
 
-export default withRouter(App);
+export default App;
