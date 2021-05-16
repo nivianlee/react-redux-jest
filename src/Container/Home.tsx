@@ -404,4 +404,6 @@ const Home = (props: Props) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps, null, {
+  context: undefined,
+})(Home);

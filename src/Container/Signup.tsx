@@ -40,6 +40,7 @@ const Signup = (props: Props) => {
     email: "",
     password: "",
   });
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
 
   useEffect(() => {
     if (Object.keys(props.user.user).length !== 0) {
@@ -185,10 +186,10 @@ const Signup = (props: Props) => {
                     <Button
                       fullWidth
                       variant="contained"
-                      color="primary"
-                      onClick={() => handleSignup()}
+                      color={isButtonClicked ? "secondary" : "primary"}
+                      onClick={() => setIsButtonClicked(!isButtonClicked)}
                     >
-                      Sign Up
+                      {isButtonClicked ? "Success" : "Sign Up"}
                     </Button>
                   </Grid>
                 </Grid>
@@ -218,4 +219,6 @@ const Signup = (props: Props) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Signup);
+export default connect(mapStateToProps, mapDispatchToProps, null, {
+  context: undefined,
+})(Signup);
