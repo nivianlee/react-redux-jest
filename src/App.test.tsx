@@ -1,7 +1,8 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import App from "./App";
+import Signup from "./Container/Signup";
 
-test("renders learn react link", () => {
+test("button turns secondary when clicked", () => {
   render(<App />);
 });

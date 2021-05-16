@@ -1,11 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
 import {
   Switch,
   Route,
-  withRouter,
-  RouteComponentProps,
-  Router,
   BrowserRouter,
+  RouteComponentProps,
 } from "react-router-dom";
 import {
   MuiThemeProvider,
@@ -16,11 +15,11 @@ import "./App.css";
 import Home from "./Container/Home";
 import Login from "./Container/Login";
 import Signup from "./Container/Signup";
-import { Provider } from "react-redux";
-import { createStore } from "redux";
-import { rootReducer } from "./redux/store";
+import { RootState } from "./redux/store";
 
-const store = createStore(rootReducer);
+const mapStateToProps = (state: RootState) => ({
+  state: state,
+});
 
 const themeLight = createMuiTheme({
   palette: {
@@ -68,17 +67,15 @@ const App = (props: any) => {
 
   return (
     <BrowserRouter>
-      <Provider store={store}>
-        <Switch>
-          <MuiThemeProvider theme={themeLight}>
-            <main className={classes.content}>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/signup" component={Signup} />
-            </main>
-          </MuiThemeProvider>
-        </Switch>
-      </Provider>
+      <Switch>
+        <MuiThemeProvider theme={themeLight}>
+          <main className={classes.content}>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
+          </main>
+        </MuiThemeProvider>
+      </Switch>
     </BrowserRouter>
   );
 };
